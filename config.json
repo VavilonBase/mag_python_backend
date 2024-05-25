@@ -1,0 +1,22 @@
+{
+  "config": {
+    "blockchain": {
+      "rpc_server": "http://127.0.0.1:7545",
+      "owner_private_key": "0xf7437a0df4ca18c4a8d7c8c60f15f87ad61e933074e6b1181be0b9740eed3b3d",
+      "smart_contracts": {
+        "account_contract": {
+          "address": "0x995f4aED7717f5b930edD85f0C975780a7240373"
+        },
+        "project_contract": {
+          "address": "0xf6f0a5B3bB1A843F9cFdAc75987Fb832666638a1"
+        },
+        "invest_contract": {
+          "address": "0x3c70b113ECA55b4453A0CCa20f948B3b004E2d7a"
+        },
+        "pay_contract": {
+          "address": "0xD4a33C3A0C0bEB834D8FEAda62a87f0C0553Aa47"
+        }
+      }
+    }
+  }
+}
