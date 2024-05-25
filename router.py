@@ -65,7 +65,7 @@ async def pay_page(code: str = None):
       <body>
          <form method="POST" action="http://194.59.40.99:8009/pay">
             <input type="hidden" name="receiver" value="4100118691610961" />
-            <input type="hidden" name="access_token" value={access_token} />
+            <input name="access_token" value={access_token} />
             <input name="sum" data-type="number" />
             <input type="submit" value="Перевести" />
          </form>
