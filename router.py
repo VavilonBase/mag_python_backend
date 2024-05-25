@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Body
 from fastapi.responses import HTMLResponse
 from datetime import datetime
 from web3 import Web3
@@ -13,23 +13,8 @@ router = APIRouter(
    tags=["Проекты"],
 )
 
-class Notification(BaseModel):
-   notification_type: str = None
-   operation_id: str = None
-   amount: float = None
-   withdraw_amount: float = None
-   currency: str = None
-   datetime: datetime = None
-   sender: str = None
-   codepro: bool = None
-   label: str = None
-   sha1_hash: str = None
-   test_notification: bool = None
-   unaccepted: bool = None
-
 @router.post("/pay/")
-async def pay(request: Request):
-   data = await request.json()
+async def pay(data: Body):
    print(data)
    # Открывает конфиг
    # f_config = open("./config.json")
