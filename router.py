@@ -31,7 +31,7 @@ async def pay(account: str):
    print(account_contract.functions.getAccount(account).call({"from": owner.address}))
    return {"status": "OK"}
 
-@router.get("/notification/")
+@router.post("/notification/")
 async def u_money_notification(request):
    print(request.body)
    return {"status": "OK"}
