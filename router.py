@@ -6,8 +6,8 @@ from web3.middleware import construct_sign_and_send_raw_middleware
 from eth_account import Account
 import json
 import requests
-
 from pydantic import BaseModel
+
 
 router = APIRouter(
    tags=["Проекты"],

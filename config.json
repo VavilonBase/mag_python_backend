@@ -17,6 +17,10 @@
           "address": "0xD4a33C3A0C0bEB834D8FEAda62a87f0C0553Aa47"
         }
       }
+    },
+    "server": {
+      "host": "http://194.59.40.99",
+      "port": 8010
     }
   }
 }
