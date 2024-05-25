@@ -49,7 +49,7 @@ async def pay(account: str):
    return {"status": "OK"}
 client_id="37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3"
 
-@router.get("/pay_page/", response_class=HTMLResponse)
+@router.get("/pay_page/")
 async def pay_page(code: str = None):
    response = requests.post("https://yoomoney.ru/oauth/token", 
                             headers={"Content-Type": "application/x-www-form-urlencoded"},
