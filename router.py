@@ -43,10 +43,10 @@ async def pay(data =Body()):
    return {"status": "OK"}
 
 @router.get("/pay_page/", response_class=HTMLResponse)
-async def pay_page(code: str = None):
+async def pay_page(project_number: int, author: str, code: str = None):
    client_id="37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3" # TODO
    grant_type = "authorization_code"
-   redirect_uri = "http://194.59.40.99:8009/pay_page1"
+   redirect_uri = "http://194.59.40.99:8009/pay_page"
    headers= {
       "Content-Type": "application/x-www-form-urlencoded"
    }
@@ -67,7 +67,7 @@ async def pay_page(code: str = None):
       <body>
          <form method="POST" action="http://194.59.40.99:8009/pay">
             <input type="hidden" name="receiver" value="4100118691610961" />
-            <input name="project_number" />
+            <input readonly name="project_number" />
             <input name="author" />
             <input type="hidden" name="access_token" value={access_token} />
             <input name="sum" />
@@ -82,9 +82,9 @@ async def pay_page(code: str = None):
 
 
 @router.get("/request_pay_page/", response_class=HTMLResponse)
-async def request_pay_page(code: str = None):
+async def request_pay_page(project_number: int, author: str):
    client_id = "37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3"
-   redirect_uri = "http://194.59.40.99:8009/pay_page1"
+   redirect_uri = f"http://194.59.40.99:8009/pay_page?project_number={project_number}&author={author}"
    headers= {
       "Content-Type": "application/x-www-form-urlencoded"
    }
