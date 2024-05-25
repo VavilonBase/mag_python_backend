@@ -52,7 +52,8 @@ async def pay_page(code: str = None):
    response = requests.post("https://yoomoney.ru/oauth/token", 
                             headers=headers,
                             data=f"code={code}&client_id={client_id}&grant_type={grant_type}&redirect_uri={redirect_uri}")
-   access_token=response.text
+   response_data = await response.json()
+   access_token = response_data["access_token"]
 
    html_content = f'''
       <!DOCTYPE html>
