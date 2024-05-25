@@ -14,7 +14,7 @@ router = APIRouter(
 )
 
 @router.post("/pay/")
-async def pay(data: Body):
+async def pay(data =Body()):
    print(data)
    # Открывает конфиг
    # f_config = open("./config.json")
