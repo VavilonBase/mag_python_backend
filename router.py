@@ -15,9 +15,13 @@ router = APIRouter(
 
 @router.post("/pay/")
 async def pay(data =Body()):
-   print(data["receiver"])
-   print(data["access_token"])
-   print(data["sum"])
+   body = str(data)
+   receiver = parse_request(body, "receiver")
+   access_token = parse_request(body, "access_token")
+   summ = parse_request(receiver, "sum")
+   print(receiver)
+   print(access_token)
+   print(summ)
    # Открывает конфиг
    # f_config = open("./config.json")
    # f_abi_account_contract = open("./contracts/AccountContract.json")
