@@ -47,9 +47,13 @@ async def pay(account: str):
    account_contract = w3.eth.contract(address=account_contract_address, abi=abi_account_contract)
    print(account_contract.functions.getAccount(account).call({"from": owner.address}))
    return {"status": "OK"}
+client_id="37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3"
 
 @router.get("/pay_page/", response_class=HTMLResponse)
 async def pay_page(code: str = None):
+   response = requests.post("https://yoomoney.ru/oauth/token", 
+                            headers={"Content-Type": "application/x-www-form-urlencoded"},
+                            data=f"code={code}&client_id={client_id}&grant_type=authorization_code&redirect_uri=http://194.59.40.99:8009/pay_page")
    html_content = f"""
     <!DOCTYPE html>
       <html lang="en">
@@ -84,7 +88,7 @@ async def pay_page(code: str = None):
 async def request_pay_page(code: str = None):
    response = requests.post("https://yoomoney.ru/oauth/authorize", 
                             headers={"Content-Type": "application/x-www-form-urlencoded"},
-                            data="client_id=37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3&response_type=code&redirect_uri=http://194.59.40.99:8009/pay_page&scope=account-info operation-history")
+                            data=f"client_id={client_id}&response_type=code&redirect_uri=http://194.59.40.99:8009/pay_page&scope=account-info operation-history")
    html_content = response.text
    return HTMLResponse(content=html_content, status_code=200)
 
