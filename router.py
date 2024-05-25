@@ -32,6 +32,6 @@ async def pay(account: str):
    return {"status": "OK"}
 
 @router.post("/notification/")
-async def u_money_notification(notification_type, operation_id, amount):
-   print(notification_type)
+async def u_money_notification(request: Request):
+   print(await request.body())
    return {"status": "OK"}
