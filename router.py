@@ -49,7 +49,8 @@ async def pay(account: str):
 
 @router.post("/notification/")
 async def u_money_notification(request: Request):
-   body = await request.body()
+   body = str(await request.body())
+   
    position_label = body.find("amount")
    not_full_label = body[position_label:]
    end_position_label = body.find("&")
