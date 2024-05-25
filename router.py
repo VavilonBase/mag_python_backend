@@ -93,7 +93,7 @@ async def request_pay_page(code: str = None):
    headers= {
       "Content-Type": "application/x-www-form-urlencoded"
    }
-   scope="account-info operation-history payment"
+   scope="payment-p2p account-info operation-history"
    response = requests.post("https://yoomoney.ru/oauth/authorize", 
                             headers=headers,
                             data=f"client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&scope={scope}")
