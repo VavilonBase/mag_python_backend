@@ -54,35 +54,9 @@ async def pay_page(code: str = None):
    response = requests.post("https://yoomoney.ru/oauth/token", 
                             headers={"Content-Type": "application/x-www-form-urlencoded"},
                             data=f"code={code}&client_id={client_id}&grant_type=authorization_code&redirect_uri=http://194.59.40.99:8009/pay_page")
-   html_content = f"""
-    <!DOCTYPE html>
-      <html lang="en">
-      <head>
-         <meta charset="UTF-8" />
-         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-         <title>Document</title>
-      </head>
-      <body>
-      {code}
-         <form method="POST" action="https://yoomoney.ru/quickpay/confirm">
-            <input type="hidden" name="receiver" value="4100118691610961" />
-            <input type="hidden" name="label" value="$order_id" />
-            <input type="hidden" name="quickpay-form" value="button" />
-            <input type="hidden" name="sum" value="10" data-type="number" />
-            <label><input type="radio" name="paymentType" value="PC" />ЮMoney</label>
-            <label
-            ><input type="radio" name="paymentType" value="AC" />Банковской
-            картой</label
-            >
-            <input type="submit" value="Перевести" />
-         </form>
-      </body>
-      <script>
-
-      </script>
-      </html>
-    """
-   return HTMLResponse(content=html_content, status_code=200)
+   access_token=response.text
+   
+   return {"access_token": access_token}
 
 @router.get("/request_pay_page/", response_class=HTMLResponse)
 async def request_pay_page(code: str = None):
