@@ -23,12 +23,13 @@ async def pay(data = Body()):
    project_number = parse_request(body, "project_number")
    author = parse_request(body, "author")
    invest_number = parse_request(body, "invest_number")
-   
+   message = f"{project_number},{author},{invest_number},{summ}"
+   print(message)
    data = {
       "pattern_id": "p2p",
       "to": receiver,
       "amount_due": summ,
-      "message": f"{project_number},{author},{invest_number},{summ}"
+      "message": message
    }
    
    headers= {
@@ -117,7 +118,7 @@ async def request_pay_page(project_number: int, author: str, invest_number: int)
 @router.post("/notification/")
 async def u_money_notification(request: Request):
    body = str(await request.body())
-   
+   print(body)
    amount = parse_request(body, "amount")
    message = parse_request(body, "message")
    params = message.split(",")
