@@ -51,12 +51,16 @@ async def pay(account: str):
 async def u_money_notification(request: Request):
    body = str(await request.body())
    
-   position_label = body.find("amount")
-   not_full_label = body[position_label:]
-   end_position_label = not_full_label.find("&")
-   label = not_full_label
-   if end_position_label != -1:
-      label = not_full_label[:end_position_label]
+   label = parse_request(body, "amount")
    
    print(label)
    return {"status": "OK"}
+
+def parse_request(full_str: str, label: str) -> str:
+   position_label = full_str.find(label)
+   not_full_label = full_str[position_label + len(label):]
+   end_position_label = not_full_label.find("&")
+   find_str = not_full_label
+   if end_position_label != -1:
+      find_str = not_full_label[:end_position_label]
+   return find_str
