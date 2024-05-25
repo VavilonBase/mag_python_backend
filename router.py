@@ -122,7 +122,7 @@ async def u_money_notification(request: Request):
    print(body)
    amount = parse_request(body, "amount")
    message = parse_request(body, "label")
-   params = message.split(",")
+   params = message.split("%2C")
    print(params)
    print(message)
    project_number = params[0]
