@@ -16,10 +16,10 @@ router = APIRouter(
 @router.post("/pay/")
 async def pay(data =Body()):
    body = str(data)
-   print(body)
+   
    receiver = parse_request(body, "receiver")
    access_token = parse_request(body, "access_token")
-   summ = parse_request(receiver, "sum")
+   summ = parse_request(body, "sum")
    print(receiver)
    print(access_token)
    print(summ)
