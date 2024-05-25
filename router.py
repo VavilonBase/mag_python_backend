@@ -20,9 +20,13 @@ async def pay(data =Body()):
    receiver = parse_request(body, "receiver")
    access_token = parse_request(body, "access_token")
    summ = parse_request(body, "sum")
+   project_number = parse_request(body, "project_number")
+   author = parse_request(body, "author")
    print(receiver)
    print(access_token)
    print(summ)
+   print(project_number)
+   print(author)
    # Открывает конфиг
    # f_config = open("./config.json")
    # f_abi_account_contract = open("./contracts/AccountContract.json")
@@ -70,9 +74,8 @@ async def pay_page(project_number: int, author: str, code: str = None):
       <body>
          <form method="POST" action="http://194.59.40.99:8009/pay">
             <input type="hidden" name="receiver" value="4100118691610961" /><br/>
-            <input readonly value={project_number} name="project_number" /><br/>
-            <input readonly value={author} name="author" /><br/>
-            <input name="author" /><br/>
+            <input type="hidden" value={project_number} name="project_number" /><br/>
+            <input type="hidden" value={author} name="author" /><br/>
             <input type="hidden" name="access_token" value={access_token} /><br/>
             <input name="sum" /><br/>
             <input type="submit" value="Перевести" />
