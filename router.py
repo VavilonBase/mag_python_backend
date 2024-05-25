@@ -29,7 +29,8 @@ async def pay(data = Body()):
       "pattern_id": "p2p",
       "to": receiver,
       "amount_due": summ,
-      "message": message
+      "message": message,
+      "label": message
    }
    
    headers= {
@@ -120,7 +121,7 @@ async def u_money_notification(request: Request):
    body = str(await request.body())
    print(body)
    amount = parse_request(body, "amount")
-   message = parse_request(body, "message")
+   message = parse_request(body, "label")
    params = message.split(",")
    print(params)
    print(message)
