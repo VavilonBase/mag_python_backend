@@ -15,7 +15,7 @@ router = APIRouter(
 
 @router.post("/pay/")
 async def pay(data = Body()):
-   body = str(data).strip("'")
+   body = data.decode().strip("'")
    
    receiver = parse_request(body, "receiver")
    access_token = parse_request(body, "access_token")
