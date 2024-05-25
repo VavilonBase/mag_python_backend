@@ -1,4 +1,4 @@
-from fastapi import APIRouter, UploadFile, HTTPException
+from fastapi import APIRouter, UploadFile, HTTPException, Request
 import datetime
 from web3 import Web3
 from web3.middleware import construct_sign_and_send_raw_middleware
@@ -32,6 +32,6 @@ async def pay(account: str):
    return {"status": "OK"}
 
 @router.post("/notification/")
-async def u_money_notification(request):
+async def u_money_notification(request: Request):
    print(request.body)
    return {"status": "OK"}
