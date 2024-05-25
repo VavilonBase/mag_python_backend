@@ -121,6 +121,8 @@ async def u_money_notification(request: Request):
    amount = parse_request(body, "amount")
    message = parse_request(body, "message")
    params = message.split(",")
+   print(params)
+   print(message)
    project_number = params[0]
    author = Web3.to_checksum_address(params[1])
    invest_number = params[2]
