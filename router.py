@@ -16,6 +16,7 @@ router = APIRouter(
 @router.post("/pay/")
 async def pay(data =Body()):
    body = str(data)
+   print(body)
    receiver = parse_request(body, "receiver")
    access_token = parse_request(body, "access_token")
    summ = parse_request(receiver, "sum")
@@ -66,8 +67,8 @@ async def pay_page(code: str = None):
       <body>
          <form method="POST" action="http://194.59.40.99:8009/pay">
             <input type="hidden" name="receiver" value="4100118691610961" />
-            <input name="access_token" value={access_token} />
-            <input name="sum" data-type="number" />
+            <input type="hidden" name="access_token" value={access_token} />
+            <input name="sum" />
             <input type="submit" value="Перевести" />
          </form>
       </body>
