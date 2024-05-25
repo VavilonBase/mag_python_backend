@@ -53,9 +53,7 @@ async def u_money_notification(request: Request):
    
    position_label = body.find("amount")
    not_full_label = body[position_label:]
-   print(not_full_label)
-   end_position_label = body.find("&")
-   print(end_position_label)
+   end_position_label = not_full_label.find("&")
    label = not_full_label
    if end_position_label != -1:
       label = not_full_label[:end_position_label]
