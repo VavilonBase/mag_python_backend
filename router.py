@@ -140,7 +140,6 @@ async def u_money_notification(request: Request):
    w3 = Web3(Web3.HTTPProvider(rpc_server))
    owner = Account.from_key(owner_private_key)
 
-   account = Web3.to_checksum_address(account)
    invest_contract = w3.eth.contract(address=invest_contract_address, abi=abi_invest_contract)
    #print(invest_contract.functions.assignGetMoney(account).call({"from": owner.address}))
    return {"status": "OK"}
