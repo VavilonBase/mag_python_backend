@@ -141,7 +141,7 @@ async def u_money_notification(request: Request):
    owner = Account.from_key(owner_private_key)
    
    invest_contract = w3.eth.contract(address=invest_contract_address, abi=abi_invest_contract)
-   invest_contract.functions.assignGetMoney(project_number, author, invest_number, summ).call({"from": owner.address})
+   invest_contract.functions.assignGetMoney(project_number, author, invest_number, summ).transact({"from": owner.address})
    return {"status": "OK"}
 
 
