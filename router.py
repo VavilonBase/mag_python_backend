@@ -51,7 +51,7 @@ async def pay(account: str):
 async def u_money_notification(request: Request):
    body = str(await request.body())
    
-   label = parse_request(body, "label")
+   label = parse_request(body, "amount")
    
    print(f"{label=}")
    return {"status": "OK"}
