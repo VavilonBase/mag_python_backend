@@ -40,6 +40,17 @@ async def pay(data = Body()):
                             headers=headers,
                             data=data)
    response_data = response.json()
+   request_id = response_data["request_id"]
+
+   data = {
+      "request_id": request_id
+   }
+
+   response = requests.post("https://yoomoney.ru/api/process-payment", 
+                            headers=headers,
+                            data=data)
+   
+   response_data = response.json()
    status = response_data["status"]
 
    return {"status": status}
