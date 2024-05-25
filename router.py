@@ -28,41 +28,75 @@ class Notification(BaseModel):
    unaccepted: bool = None
 
 @router.get("/pay/")
-async def pay(account: str):
+async def pay(request: Request):
+   data = await request.json()
+   print(data)
    # Открывает конфиг
-   f_config = open("./config.json")
-   f_abi_account_contract = open("./contracts/AccountContract.json")
+   # f_config = open("./config.json")
+   # f_abi_account_contract = open("./contracts/AccountContract.json")
 
-   config = json.load(f_config)
-   abi_account_contract = json.load(f_abi_account_contract)
+   # config = json.load(f_config)
+   # abi_account_contract = json.load(f_abi_account_contract)
 
-   owner_private_key = config["config"]["blockchain"]["owner_private_key"]
-   rpc_server = config["config"]["blockchain"]["rpc_server"]
-   account_contract_address = config["config"]["blockchain"]["smart_contracts"]["account_contract"]["address"]
+   # owner_private_key = config["config"]["blockchain"]["owner_private_key"]
+   # rpc_server = config["config"]["blockchain"]["rpc_server"]
+   # account_contract_address = config["config"]["blockchain"]["smart_contracts"]["account_contract"]["address"]
 
-   w3 = Web3(Web3.HTTPProvider(rpc_server))
-   owner = Account.from_key(owner_private_key)
+   # w3 = Web3(Web3.HTTPProvider(rpc_server))
+   # owner = Account.from_key(owner_private_key)
 
-   account = Web3.to_checksum_address(account)
-   account_contract = w3.eth.contract(address=account_contract_address, abi=abi_account_contract)
-   print(account_contract.functions.getAccount(account).call({"from": owner.address}))
+   # account = Web3.to_checksum_address(account)
+   # account_contract = w3.eth.contract(address=account_contract_address, abi=abi_account_contract)
+   # print(account_contract.functions.getAccount(account).call({"from": owner.address}))
    return {"status": "OK"}
-client_id="37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3"
 
-@router.get("/pay_page/")
+@router.get("/pay_page/", response_class=HTMLResponse)
 async def pay_page(code: str = None):
+   client_id="37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3" # TODO
+   grant_type = "authorization_code"
+   redirect_uri = "http://194.59.40.99:8009/pay_page"
+   headers= {
+      "Content-Type": "application/x-www-form-urlencoded"
+   }
    response = requests.post("https://yoomoney.ru/oauth/token", 
-                            headers={"Content-Type": "application/x-www-form-urlencoded"},
-                            data=f"code={code}&client_id={client_id}&grant_type=authorization_code&redirect_uri=http://194.59.40.99:8009/pay_page")
+                            headers=headers,
+                            data=f"code={code}&client_id={client_id}&grant_type{grant_type}=&redirect_uri={redirect_uri}")
    access_token=response.text
+
+   html_content = f'''
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+         <meta charset="UTF-8" />
+         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+         <title>Document</title>
+      </head>
+      <body>
+         <form method="POST" action="http://194.59.40.99:8009/pay">
+            <input type="hidden" name="receiver" value="4100118691610961" />
+            <input type="hidden" name="access_token" value={access_token} />
+            <input name="sum" data-type="number" />
+            <input type="submit" value="Перевести" />
+         </form>
+      </body>
+      </html>
+      '''
    
-   return {"access_token": access_token}
+   return HTMLResponse(content=html_content, status_code=200)
+
+
 
 @router.get("/request_pay_page/", response_class=HTMLResponse)
 async def request_pay_page(code: str = None):
+   client_id = "37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3"
+   redirect_uri = "http://194.59.40.99:8009/pay_page"
+   headers= {
+      "Content-Type": "application/x-www-form-urlencoded"
+   }
+   scope="account-info operation-history payment"
    response = requests.post("https://yoomoney.ru/oauth/authorize", 
-                            headers={"Content-Type": "application/x-www-form-urlencoded"},
-                            data=f"client_id={client_id}&response_type=code&redirect_uri=http://194.59.40.99:8009/pay_page&scope=account-info operation-history")
+                            headers=headers,
+                            data=f"client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&scope={scope}")
    html_content = response.text
    return HTMLResponse(content=html_content, status_code=200)
 
@@ -71,9 +105,10 @@ async def request_pay_page(code: str = None):
 async def u_money_notification(request: Request):
    body = str(await request.body())
    
-   label = parse_request(body, "amount")
-   
-   print(f"{label=}")
+   amount = parse_request(body, "amount")
+   label = parse_request(body, "label")
+   print(amount)
+   print(label)
    return {"status": "OK"}
 
 
