@@ -64,7 +64,7 @@ async def pay_page(project_number: int, author: str, invest_number: int, code: s
    data={
       "code": code,
       "client_id": "37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3",
-      "redirect_uri": f"http://194.59.40.99:8010/pay_page?project_number={project_number}&author={author}&invest_number={invest_number}",
+      "redirect_uri": f"http://194.59.40.99:8010/pay_page/?project_number={project_number}&author={author}&invest_number={invest_number}",
       "grant_type": "authorization_code"
    }
    response = requests.post("https://yoomoney.ru/oauth/token", 
@@ -106,7 +106,7 @@ async def request_pay_page(project_number: int, author: str, invest_number: int)
    }
    data={
       "client_id": "37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3",
-      "redirect_uri": f"http://194.59.40.99:8010/pay_page?project_number={project_number}&author={author}&invest_number={invest_number}",
+      "redirect_uri": f"http://194.59.40.99:8010/pay_page/?project_number={project_number}&author={author}&invest_number={invest_number}",
       "scope": "payment-p2p account-info operation-history"
    }
    response = requests.post("https://yoomoney.ru/oauth/authorize", 
