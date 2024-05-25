@@ -28,8 +28,7 @@ async def pay(data = Body()):
       "pattern_id": "p2p",
       "to": receiver,
       "amount_due": summ,
-      "message": str(project_number) + str(author) + str(invest_number),
-      "label": str(project_number) + str(author) + str(invest_number)
+      "message": f"{project_number},{author},{invest_number},{summ}"
    }
    
    headers= {
@@ -120,11 +119,12 @@ async def u_money_notification(request: Request):
    body = str(await request.body())
    
    amount = parse_request(body, "amount")
-   label = parse_request(body, "label")
    message = parse_request(body, "message")
-   print(amount)
-   print(label)
-   print(message)
+   params = message.split(",")
+   project_number = params[0]
+   author = Web3.to_checksum_address(params[1])
+   invest_number = params[2]
+   summ = int(params[3].replace(".", ""))
 
    #Открываем конфиг
    f_config = open("./config.json")
@@ -139,9 +139,9 @@ async def u_money_notification(request: Request):
 
    w3 = Web3(Web3.HTTPProvider(rpc_server))
    owner = Account.from_key(owner_private_key)
-
+   
    invest_contract = w3.eth.contract(address=invest_contract_address, abi=abi_invest_contract)
-   #print(invest_contract.functions.assignGetMoney(account).call({"from": owner.address}))
+   invest_contract.functions.assignGetMoney(project_number, author, invest_number, summ).call({"from": owner.address})
    return {"status": "OK"}
 
 
