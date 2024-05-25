@@ -46,7 +46,7 @@ async def pay(data =Body()):
 async def pay_page(project_number: int, author: str, code: str = None):
    client_id="37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3" # TODO
    grant_type = "authorization_code"
-   redirect_uri = f"'http://194.59.40.99:8009/pay_page?project_number={project_number}&author={author}'"
+   redirect_uri = f"http://194.59.40.99:8009/pay_page?project_number={project_number}&author={author}"
    headers= {
       "Content-Type": "application/x-www-form-urlencoded"
    }
@@ -83,15 +83,17 @@ async def pay_page(project_number: int, author: str, code: str = None):
 
 @router.get("/request_pay_page/", response_class=HTMLResponse)
 async def request_pay_page(project_number: int, author: str):
-   client_id = "37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3"
-   redirect_uri = f"'http://194.59.40.99:8009/pay_page?project_number={project_number}&author={author}'"
    headers= {
       "Content-Type": "application/x-www-form-urlencoded"
    }
-   scope="payment-p2p account-info operation-history"
+   data={
+      "client_id": "37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3",
+      "redirect_uri": f"http://194.59.40.99:8009/pay_page?project_number={project_number}&author={author}",
+      "scope": "payment-p2p account-info operation-history"
+   }
    response = requests.post("https://yoomoney.ru/oauth/authorize", 
                             headers=headers,
-                            data=f"client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&scope={scope}")
+                            data=data)
    html_content = response.text
    return HTMLResponse(content=html_content, status_code=200)
 
