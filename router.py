@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, HTTPException, Request
-import datetime
+from datetime import datetime
 from web3 import Web3
 from web3.middleware import construct_sign_and_send_raw_middleware
 from eth_account import Account
@@ -13,18 +13,18 @@ router = APIRouter(
 )
 
 class Notification(BaseModel):
-   notification_type: str | None
-   operation_id: str | None
-   amount: float | None
-   withdraw_amount: float | None
-   currency: str | None
-   datetime: datetime.datetime | None
-   sender: str | None
-   codepro: bool | None
-   label: str | None
-   sha1_hash: str | None
-   test_notification: bool | None
-   unaccepted: bool | None
+   notification_type: str = None
+   operation_id: str = None
+   amount: float = None
+   withdraw_amount: float = None
+   currency: str = None
+   datetime: datetime = None
+   sender: str = None
+   codepro: bool = None
+   label: str = None
+   sha1_hash: str = None
+   test_notification: bool = None
+   unaccepted: bool = None
 
 @router.get("/pay/")
 async def pay(account: str):
