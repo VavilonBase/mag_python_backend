@@ -27,7 +27,7 @@ class Notification(BaseModel):
    test_notification: bool = None
    unaccepted: bool = None
 
-@router.get("/pay/")
+@router.post("/pay/")
 async def pay(request: Request):
    data = await request.json()
    print(data)
