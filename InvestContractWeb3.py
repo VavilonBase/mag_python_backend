@@ -1,12 +1,12 @@
-from typing import Any, Type
-from eth_typing import Address, ChecksumAddress
+from eth_typing import ChecksumAddress
 from web3 import Web3
 from web3.contract import Contract
+
 from config import Config
 
 
 class InvestContractWeb3:
-    invest_contract: Type[Contract] | Contract
+    invest_contract: Contract
 
     def __init__(self, w3: Web3):
         config = Config()
