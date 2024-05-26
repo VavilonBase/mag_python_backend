@@ -39,7 +39,7 @@ class ResponseProcessPayment:
 class UMoney:
     request_payment_url: str = "https://yoomoney.ru/api/request-payment"
     request_process_url: str = "https://yoomoney.ru/api/process-payment"
-    request_authorize_url: str = "https://yoomoney.ru/oauth/token"
+    request_authorize_url: str = "https://yoomoney.ru/oauth/authorize"
     request_token_url: str = "https://yoomoney.ru/oauth/token"
 
     @classmethod
@@ -83,6 +83,7 @@ class UMoney:
             "redirect_uri": f"{config.host}:{config.port}/pay_page/?project_number={project_number}&author={author}&invest_number={invest_number}",
             "scope": "payment-p2p account-info operation-history"
         }
+        print(data["redirect_uri"])
         response = requests.post(cls.request_authorize_url,
                                  headers=headers,
                                  data=data)
