@@ -4,23 +4,18 @@
       "rpc_server": "http://127.0.0.1:7545",
       "owner_private_key": "0xf7437a0df4ca18c4a8d7c8c60f15f87ad61e933074e6b1181be0b9740eed3b3d",
       "smart_contracts": {
-        "account_contract": {
-          "address": "0x299995f8d3eE12200E20aa707fa0d64b1F791F15"
-        },
-        "project_contract": {
-          "address": "0xD0806A545c766D09cF8aa464e1f7226B123a5686"
-        },
         "invest_contract": {
-          "address": "0x2eB87eB994EB6F65A76bAD05F15BB5A66423662F"
-        },
-        "pay_contract": {
-          "address": "0xD4a33C3A0C0bEB834D8FEAda62a87f0C0553Aa47"
+          "address": "0x2eB87eB994EB6F65A76bAD05F15BB5A66423662F",
+          "path": "./contracts/InvestContract.json"
         }
       }
     },
     "server": {
       "host": "http://194.59.40.99",
       "port": 8010
+    },
+    "u_money": {
+      "client_id": "37B2979DA7A8F2BA802D236FF49625CBA9BB992A44F3DED85E193E32D86921C3"
     }
   }
 }
