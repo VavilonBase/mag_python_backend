@@ -24,8 +24,9 @@ class Config:
         # blockchain
         self.rpc_server = config["config"]["blockchain"]["rpc_server"]
         self.owner_private_key = config["config"]["blockchain"]["owner_private_key"]
-        self.invest_contract_address = Web3.to_checksum_address(config["config"]["blockchain"]["smart_contracts"]["invest_contract"]["address"])
-        self.invest_contract_abi_path = config["config"]["blockchain"]["smart_contracts"]["invest_contract"]["address"]
+        self.invest_contract_address = Web3.to_checksum_address(
+            config["config"]["blockchain"]["smart_contracts"]["invest_contract"]["address"])
+        self.invest_contract_abi_path = config["config"]["blockchain"]["smart_contracts"]["invest_contract"]["path"]
 
         # server
         self.host = config["config"]["server"]["host"]
